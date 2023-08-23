@@ -6,15 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 /***
  * This class represents a category into a plc data tree
  */
+
 @Slf4j
 @Data
 @NoArgsConstructor
 public class Category {
+
     private long id;
 
     private String name;
@@ -22,108 +22,67 @@ public class Category {
     private List<Category> categories;
 
     private List<Measure> measures;
-    
-    /**
-     * This getMethode help the user to get the category's name
-     * 
-     * @return the name (String)
-     */
-    public String getName(){
-        return name;
-    }
-
-    /**
-     * This GetMethode help users to get Category categories.
-     * @return
-     */
-    public List<Category> getCategories(){
-        return categories;
-    }
-
-    /**
-     * This GetMethode help users to get Category categories.
-     * @return
-     */
-    public List<Measure> getMeasures(){
-        return measures;
-    }
 
 
     /**
-     * 
-     * @param searchString
-     * @return - return a boolean for tests [True is word searched had been find]
+     * @param eltSearch - Elt search by user .
+     * @param filter - filter choosed by user to filter measures.
+     * @return Boolean return true or false for tests (Junit). 
      */
-    public Boolean searchByName(String searchString){
-        Stack pile0 = new Stack();
-        results tests = new results();
-        return searchingByName(searchString, pile0, tests);
-    }
+    public Boolean search(Object eltSearch, String filter){
+        Stack<String> pile0 = new Stack();
+        Results resultsTests = new Results();
 
-    /**
-     * @param searchingString - string to search into measure names
-     * @param pile - A stack to keep each path to each DataType searched
-     * @param doesExist - an object to know if word searched was find 
-     */
-    private Boolean searchingByName(String searchingString, Stack pile, results doesExist) {
-        //Test made to know if the measures has the good name, 
-        //If it's the corect name, we're returning previous categories too locate its easier.
-        for(int x=0; x<measures.size(); x++){
-            if(measures.get(x).getName().equals(searchingString) == true)
-            {
-                doesExist.setTrue();
-                System.out.println(pile + "  " +measures.get(x).getName());
-            }
-        }   
-        for(int i=0; i<categories.size(); i++){
-            pile.push(categories.get(i).getName());
-            categories.get(i).searchingByName(searchingString, pile, doesExist);
+        if(isCorrectValue(filter)){
+            return research(eltSearch, pile0, filter, resultsTests).getValue();
         }
-        if(pile.empty() == false){
-            pile.pop();
+
+        return null;
+    }
+
+    /**
+     * This methode is use to know if the filter placed by users can be use. 
+     * @param filter - A simple string filled by users when he made a search request
+     * @return Boolean | True -> filter is valid || false -> filter isn't valid.
+     */
+    public Boolean isCorrectValue(String filter){
+        if(filter.equals(AcceptedData.NAME.getValue()) || filter.equals(AcceptedData.ID.getValue()) || filter.equals(AcceptedData.DATATYPE.getValue())){
+            return true;
+        } else {
+            return false;
         }
-        return doesExist.getValue();
     }
 
 
     /**
      * 
-     * @param dataType -  dataType to search all measure which matching dataType
-     * @return - return a boolean for tests [True is word searched had been find]
+     * @param eltSearch - Object - Element search by user 
+     * @param pile - Stack - A stack to save and print each path to each elt 
+     * @param filter - String - A simple string filled by users when he made a search request
      */
-    public Boolean searchByDataType(DataType dataType){
-        Stack pile0 = new Stack();
-        
-        results tests = new results();
-        return searchingByDataType(dataType, pile0, tests);
-    }
-
-    /**
-     *
-     * @param dataType - dataType to search all measure which matching dataType
-     * @param pile - A stack to keep each path to each DataType searched
-     * @param doesExist - an object to know if word searched was find 
-     */
-    private Boolean searchingByDataType(DataType dataType, Stack pile, results doesExist) {
+    private Results research(Object eltSearch, Stack<String> pile, String filter, Results resultsTests){
 
         //Test pour savoir si l'on a trouvé la mesure que l'on veut
         for(int x=0; x<measures.size(); x++){
-            if(measures.get(x).getDataType().equals(dataType) == true)
-            {
-                doesExist.setTrue();
-                System.out.println(pile+"  "+measures.get(x).getDataType());
-            }
-        }   
 
+            if(measures.get(x).measuresFilter(filter).equals(eltSearch)){
+                System.out.println(pile + "  " + eltSearch);
+                resultsTests.setTrue();
+            }
+        }          
+
+        //Gestion des appels récursifs
         for(int i=0; i<categories.size(); i++){
             pile.push(categories.get(i).getName());
-            categories.get(i).searchingByDataType(dataType, pile, doesExist);
+            categories.get(i).research(eltSearch, pile, filter, resultsTests);
         }
-
-        if(pile.empty() == false){
+        
+        //gestion depilage
+        if(!pile.empty()){
             pile.pop();
         }
 
-        return doesExist.getValue();        
+        return resultsTests;
     }
+
 }

@@ -11,28 +11,20 @@ import lombok.Getter;
 import static java.util.Arrays.stream;
 
 @Getter
-public enum DataType {
+public enum AcceptedData {
 
-    SHORT("Short", Short.class),
+    NAME("Name", String.class),
 
-    INTEGER("Integer", Integer.class),
+    ID("Id", Long.class),
 
-    LONG("Long", Long.class),
-
-    FLOAT("Float", Float.class),
-
-    DOUBLE("Double", Double.class),
-
-    BOOLEAN("Boolean", Boolean.class),
-
-    STRING("String", String.class);
+    DATATYPE("DataType", DataType.class);
 
     @JsonValue
     private final String value;
 
     private final Class<?> clazz;
 
-    DataType(String value, Class<?> clazz) {
+    AcceptedData(String value, Class<?> clazz) {
         this.value = value;
         this.clazz = clazz;
     }

@@ -18,20 +18,22 @@ public class Plc {
         Plc plc = new Plc();
 
         Category category = plc.loadPlcTree(System.getProperty("user.dir") + "/resources/plcTree.json");
-        category.searchByName("Temperature");
-        category.searchByDataType(DataType.FLOAT);
+        
+        category.search("Temperature", "Name");
+        //category.search(DataType.FLOAT, "DataType");
+        //category.search(6287015995768832L, "Id");
     }
 
     /**
      * Load the data tree of the Plc from a json file
      *
      * @param filePath - the tree file path
-     * @return the root category of the tree
+     * @return the main category of a Json file. 
      */
     public Category loadPlcTree(String filePath) throws IOException {
         ObjectMapper temp = new ObjectMapper();
-        File treeFileFluxFile = new File(filePath);
-        Category tempCategory = temp.readValue(treeFileFluxFile, Category.class);
+        File file = new File(filePath);
+        Category tempCategory = temp.readValue(file, Category.class);
         return tempCategory;
     }
 }

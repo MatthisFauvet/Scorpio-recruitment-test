@@ -6,8 +6,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
 import java.util.Stack;
 
@@ -18,29 +16,43 @@ class CategoryTest {
         System.out.println("Avant tous les tests");
     }
 
+    
     @Test
-    void searchByName() throws IOException {
-        Stack ceStack = new Stack();
-        results tests = new results();
-
+    void searchName() throws IOException {
         Plc ArbreX = new Plc();
         Category CategoryX = ArbreX.loadPlcTree(System.getProperty("user.dir") + "/../resources/plcTree.json");
-        
+        Assertions.assertTrue(CategoryX.search("Temperature", "Name"));
+    }
 
-        Assertions.assertEquals(true, CategoryX.searchByName("Temperature"));
+    @Test
+    void searchId() throws IOException {
+        Plc ArbreX = new Plc();
+        Category CategoryX = ArbreX.loadPlcTree(System.getProperty("user.dir") + "/../resources/plcTree.json");
+        Assertions.assertTrue(CategoryX.search(6287015995768832L, "Id"));
     }
 
     
     @Test
-    void searchByDataType() throws IOException {
-        Stack ceStack = new Stack();
-        results tests = new results();
+    void searchFalse() throws IOException {
+        Plc ArbreX = new Plc();
+        Category CategoryX = ArbreX.loadPlcTree(System.getProperty("user.dir") + "/../resources/plcTree.json");
+        Assertions.assertFalse(CategoryX.search("Temperature", "Id"));
+    }
 
+    @Test
+    void searchFalse2() throws IOException {
+        Plc ArbreX = new Plc();
+        Category CategoryX = ArbreX.loadPlcTree(System.getProperty("user.dir") + "/../resources/plcTree.json");
+        Assertions.assertFalse(CategoryX.search("aze", "Name"));
+    }
+
+
+    @Test
+    void searchByDataType() throws IOException {
         Plc ArbreX = new Plc();
         Category CategoryX = ArbreX.loadPlcTree(System.getProperty("user.dir") + "/../resources/plcTree.json");
         
-
-        Assertions.assertEquals(true, CategoryX.searchByDataType(DataType.FLOAT));
+        Assertions.assertEquals(true, CategoryX.search(DataType.FLOAT, "DataType"));
     }
 
     @AfterAll
