@@ -1,11 +1,8 @@
 package com.scorpio;
 
-import lombok.Data;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import lombok.Data;
 import lombok.Getter;
 
 import static java.util.Arrays.stream;

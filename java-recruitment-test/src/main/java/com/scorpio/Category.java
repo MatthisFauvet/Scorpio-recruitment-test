@@ -53,16 +53,13 @@ public class Category {
         }
     }
 
-
     /**
-     * 
+     * Test pour savoir si l'on a trouvé la mesure que l'on veut
      * @param eltSearch - Object - Element search by user 
      * @param pile - Stack - A stack to save and print each path to each elt 
      * @param filter - String - A simple string filled by users when he made a search request
      */
     private Results research(Object eltSearch, Stack<String> pile, String filter, Results resultsTests){
-
-        //Test pour savoir si l'on a trouvé la mesure que l'on veut
         for(int x=0; x<measures.size(); x++){
 
             if(measures.get(x).measuresFilter(filter).equals(eltSearch)){

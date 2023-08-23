@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
-import java.util.Stack;
 
 class CategoryTest {
 
