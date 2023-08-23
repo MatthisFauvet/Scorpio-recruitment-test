@@ -13,7 +13,10 @@
 Cette énumération premet de vérifier si le filtre choisit par l'utilisateur est un filtre exploitable, autorisé. 
 
 Utilisation :
-> Category.java -> isCorrectValue();
+
+``` Java
+Category.java -> isCorrectValue();
+```
 
 ## Nouvelles méthodes
 
@@ -30,21 +33,28 @@ Cette fonctionnalité permet d'éviter toute confusion si nous êtions amener a 
 A présent, les méthodes searchByName, searchById et searchByDataType sont toutes les trois remplacé par search. 
 
 Exemple syntaxe :
-> Category.search("Temperature", "filtre");
+``` Java
+Category.search("Temperature", "filtre");
+```
 
 Emplacement : 
-> Category.java
 
+``` Java
+Category.java
+```
 ### Measure.measureFilter()
 
 Cette fonction crucial pour le nouveau système de filtrage d'éléments permets de trouver les mesures a renvoyé grace au filtre. (Voir les filtres plus haut)
 
-Exemple syntaxe : 
-> measures.measuresFilter(filter)
+Exemple syntaxe :
 
+``` Java
+measures.measuresFilter(filter);
+```
 Emplacement :
-> Measure.java 
-
+``` java
+Measure.java 
+```
 
 ## Syntaxe et noms de variables
 
@@ -74,8 +84,10 @@ Beaucoup plus de problèmes peuvent apparaitre :
 
 les deux assertions sont bonne, l'une vérifie un bon résultats positif, l'autre vérifie que le résultats est bien négatif.
 
-> Assertions.assertTrue(CategoryX.search("Temperature", "Name")); 
-> Assertions.assertFalse(CategoryX.search("Temperature", "Id"));
+``` Java
+Assertions.assertTrue(CategoryX.search("Temperature", "Name")); 
+Assertions.assertFalse(CategoryX.search("Temperature", "Id"));
+```
 
 # Partie sélectionnée :
 
