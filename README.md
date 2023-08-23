@@ -1,3 +1,16 @@
+# Partie sélectionnée :
+
+Suite au choix concernant la réalisation de ce test, j'ai décidé de m'orienter sur la partie Java du projet.
+
+# Liberté prise 
+
+Afin de mener à bien ce projet, j'ai prit la liberté de modifier les fonctions demandés (notamment au niveau des paramètres) et d'en rajouter quelques-unes.
+Par exemple, Nous appellons toujours la fonction SearchByName avec un chemin String en paramètre, cependant, la recherche d'effectueras dans searchingByName.
+Cela a pour but de faire d'obtenir le même résultat sans modifier le main, mais en même temps de pouvoir faire un algorithme réccursif en algorithme de recherche.
+
+___________
+
+
 # scorpio-recruitment-test
 
 ## Gérer l'arbre de données d'un automate
